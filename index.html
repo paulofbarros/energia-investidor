@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Frequência Energética do Investidor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #555;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .resultado {
+      margin-top: 30px;
+      background: #e9ecef;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .grafico {
+      margin-top: 20px;
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .barra-energia {
+      height: 100%;
+      background: linear-gradient(to right, #28a745, #218838);
+      width: 0%;
+      transition: width 1s ease-out;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Frequência Energética do Investidor</h1>
+    <p>Avalie sua energia atual e descubra se você está pronto para decisões financeiras estratégicas.</p>
+
+    <label for="mente">🧠 Mente Clara:</label>
+    <select id="mente">
+      <option value="">Selecione</option>
+      <option value="20">Muito Confuso</option>
+      <option value="40">Confuso</option>
+      <option value="60">Neutro</option>
+      <option value="80">Claro</option>
+      <option value="100">Extremamente Clara</option>
+    </select>
+
+    <label for="corpo">💪 Corpo Ativo:</label>
+    <select id="corpo">
+      <option value="">Selecione</option>
+      <option value="20">Muito Cansado</option>
+      <option value="40">Cansado</option>
+      <option value="60">Neutro</option>
+      <option value="80">Ativo</option>
+      <option value="100">Cheio de Energia</option>
+    </select>
+
+    <label for="disciplina">🎯 Disciplina Financeira:</label>
+    <select id="disciplina">
+      <option value="">Selecione</option>
+      <option value="20">Baixa</option>
+      <option value="40">Fraca</option>
+      <option value="60">Moderada</option>
+      <option value="80">Alta</option>
+      <option value="100">Excelente</option>
+    </select>
+
+    <label for="emocao">🫂 Controle Emocional:</label>
+    <select id="emocao">
+      <option value="">Selecione</option>
+      <option value="20">Muita Ansiedade</option>
+      <option value="40">Ansioso</option>
+      <option value="60">Equilibrado</option>
+      <option value="80">Calmo</option>
+      <option value="100">Totalmente Centrado</option>
+    </select>
+
+    <label for="habitos">📅 Consistência de Hábitos:</label>
+    <select id="habitos">
+      <option value="">Selecione</option>
+      <option value="20">Irregular</option>
+      <option value="40">Alguns hábitos ruins</option>
+      <option value="60">Regular</option>
+      <option value="80">Consistente</option>
+      <option value="100">Disciplinado</option>
+    </select>
+
+    <button onclick="calcularEnergia()">Calcular Minha Frequência Energética</button>
+
+    <div class="resultado" id="resultado">
+      <h2>Resultado</h2>
+      <div class="grafico">
+        <div class="barra-energia" id="barra"></div>
+      </div>
+      <p><strong>Pontuação:</strong> <span id="pontuacao">0</span>%</p>
+      <p id="feedback"></p>
+    </div>
+  </div>
+
+  <script>
+    function calcularEnergia() {
+      const mente = parseInt(document.getElementById("mente").value);
+      const corpo = parseInt(document.getElementById("corpo").value);
+      const disciplina = parseInt(document.getElementById("disciplina").value);
+      const emocao = parseInt(document.getElementById("emocao").value);
+      const habitos = parseInt(document.getElementById("habitos").value);
+
+      if (!mente || !corpo || !disciplina || !emocao || !habitos) {
+        alert("Por favor, selecione todas as categorias.");
+        return;
+      }
+
+      const total = mente + corpo + disciplina + emocao + habitos;
+      const media = Math.round(total / 5); // Média entre os fatores
+
+      document.getElementById("pontuacao").innerText = media;
+
+      // Ajustar largura da barra
+      const barra = document.getElementById("barra");
+      barra.style.width = media + "%";
+
+      // Feedback personalizado
+      let feedback = "";
+      if (media <= 40) {
+        feedback = "⚠️ Sua energia está baixa. Talvez seja melhor adiar decisões importantes até recarregar.";
+      } else if (media > 40 && media <= 70) {
+        feedback = "💡 Sua energia está moderada. Você pode fazer pequenas decisões, mas evite operações arriscadas.";
+      } else {
+        feedback = "✅ Sua energia está alta! Você tem clareza e estabilidade para tomar decisões inteligentes hoje.";
+      }
+
+      document.getElementById("feedback").innerText = feedback;
+    }
+  </script>
+</body>
+</html>
